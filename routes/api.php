@@ -31,7 +31,13 @@ Route::group(['middleware' => 'api'], function($routes){
 
     Route::get('/blogs', [BlogController::class, 'blogs']);
     Route::get('/blogs/{id}', [BlogController::class, 'singleblog']);
-    Route::get('/search/{title}', [BlogController::class, 'search']);
+    Route::get('/search', [BlogController::class, 'search']);
     Route::post('/create', [BlogController::class, 'create']);
+    Route::post('/deleteblog/{id}', [BlogController::class, 'deleteblog']);
+    Route::post('/createcategory', [BlogController::class, 'createCategory']);
+    Route::post('/addcategorytoblog', [BlogController::class, 'addCategoryToBlog']);
+
+    Route::post('blogs/{id}/addfavorite', [BlogController::class, 'addFavorite']);
+    Route::post('blogs/{id}/removefavorite', [BlogController::class, 'removeFavorite']);
     
 });

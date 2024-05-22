@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('creator_image')->nullable();
             $table->string('creator_name');
             $table->time('estimated_reading_time')->nullable();
+            $table->integer('category_id')->nullable();
             $table->tinyInteger('valid_user')->default(0)->comment('0: show to all, 1: only valid user');
             $table->integer('total_favorites')->default(0);
+            $table->tinyInteger('is_deleted')->default(0)->comment('0: Not deleted, 1: deleted');
             $table->timestamps();
         });
     }

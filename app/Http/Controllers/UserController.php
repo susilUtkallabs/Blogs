@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Favorite;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Tymon\JWTAuth\Facades\JWTAuth;
 use Validator;
+use Auth;
 
 class UserController extends Controller
 {
@@ -62,7 +63,22 @@ class UserController extends Controller
     }
 
     public function profile(){
-        return response()->json(auth()->user());
+        $user = Auth::user();
+        if($user){
+            $myFavorites = Favorite::select('blogs.*')
+                                    ->where('user_id', $user->id)
+                                    ->leftJoin('blogs', 'blogs.id','=', 'favorites.blog_id')
+                                    ->where('blogs.is_deleted', 0)
+                                    ->get();
+            return response()->json([
+                'user' => $user,
+                'my_favorites' => $myFavorites
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'You have to login first'
+            ]);
+        }
     }
 
     public function refresh(){
