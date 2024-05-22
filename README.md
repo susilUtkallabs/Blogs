@@ -1,8 +1,12 @@
 # Blogs
 
 create .env place your database name
+Laravel Version - 10.48.10
+PHP Version - 8.1.25
+Composer Version - 2.7.6
 
 # Run commands
+composer update (if needed)
 php artisan jwt:secret
 php artisan optimize
 php artisan migrate
